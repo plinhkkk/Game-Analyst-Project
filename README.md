@@ -1,351 +1,171 @@
-# Game-Analyst-Project
-# Báo cáo Phân tích Dashboard Monetization
+# Game Monetization Dashboard Analysis
 
-## 1. Giới thiệu dự án
+## Giới thiệu
 
-Dự án này tập trung phân tích **hiệu quả monetization của một sản phẩm/game mobile** thông qua dashboard tổng hợp dữ liệu người chơi và doanh thu.  
-Mục tiêu của báo cáo là làm rõ:
+Dự án này phân tích **dashboard monetization của một game mobile** nhằm hiểu rõ cơ chế tạo doanh thu và hành vi chi tiêu của người chơi.  
 
-- Doanh thu được hình thành như thế nào
-- Doanh thu đến từ đâu
-- Nhóm người chơi nào tạo ra doanh thu chính
-- Những hành vi nào thúc đẩy chi tiêu
-- Các hướng tối ưu hóa để tăng trưởng doanh thu bền vững
+Phân tích tập trung vào việc xác định:
 
-Phân tích này hỗ trợ nhóm **vận hành** và **sản phẩm** trong việc ra quyết định nhằm tối ưu doanh thu và giảm rủi ro phụ thuộc vào một nhóm người chơi nhỏ.
+- Các nguồn doanh thu chính
+- Các phân khúc người chơi quan trọng
+- Các yếu tố hành vi ảnh hưởng đến monetization
+
+Mục tiêu của dự án là giúp nhóm **sản phẩm và vận hành** hiểu rõ cách doanh thu được hình thành, từ đó đề xuất các chiến lược tối ưu nhằm tăng trưởng doanh thu bền vững.
 
 ---
 
-## 2. Mục tiêu phân tích
+## Mục tiêu phân tích
 
-Báo cáo tập trung trả lời 3 câu hỏi chính:
+Phân tích tập trung vào các vấn đề chính sau:
 
-### 2.1. Doanh thu được hình thành qua những chỉ số nào?
-Các chỉ số trọng tâm gồm:
+- Đánh giá hiệu quả monetization thông qua các chỉ số:
+  - Revenue
+  - ARPU
+  - ARPPU
+  - Conversion Rate
 
-- **Revenue**
-- **ARPU** (Average Revenue Per User)
-- **ARPPU** (Average Revenue Per Paying User)
-- **Conversion Rate**
+- Xác định nguồn doanh thu theo các chiều phân tích:
+  - Game Genre
+  - Country
+  - Device
+  - Payment Method
 
-### 2.2. Doanh thu đến từ đâu?
-Phân tích theo các chiều:
+- Phân tích vai trò của các nhóm người chơi:
+  - Whale
+  - Dolphin
+  - Minnow
 
-- **Game Genre**
-- **Country**
-- **Device**
-- **Payment Method**
-
-### 2.3. Nhóm người chơi nào đóng vai trò chính trong việc tạo doanh thu?
-Phân tích theo:
-
-- **Spending Segment**: Whale, Dolphin, Minnow
-- **Frequency**
-- **Playtime**
-- **Session Count**
+- Xác định mối quan hệ giữa hành vi chơi game và chi tiêu thông qua:
+  - Frequency
+  - Playtime
+  - Session Count
 
 ---
 
-## 3. Khung logic phân tích
+## Dataset
 
-Phân tích được triển khai theo mô hình **3 tầng**:
+Dataset mô phỏng hành vi người chơi game mobile và giao dịch mua hàng trong ứng dụng.
 
-### 3.1. Tầng kết quả (Outcome)
-Đánh giá hiệu quả monetization tổng thể qua các chỉ số:
+**Quy mô dữ liệu**
 
-- Tổng doanh thu
-- Số payer
-- Conversion rate
-- ARPU
-- ARPPU
+- 3,024 người chơi
+- 13 biến dữ liệu
 
-### 3.2. Tầng nguồn (Source)
-Xác định doanh thu đến từ đâu theo:
+**Các nhóm dữ liệu chính**
 
-- Thể loại game
-- Quốc gia
-- Thiết bị
-- Phương thức thanh toán
+- Thông tin nhân khẩu học
+- Hành vi chơi game
+- Hành vi chi tiêu
 
-### 3.3. Tầng cơ chế hành vi (Mechanism / How)
-Giải thích nguyên nhân tạo doanh thu thông qua hành vi người chơi:
+**Phân khúc người chơi**
 
-- Tần suất chơi
-- Thời lượng chơi
-- Số phiên chơi
-- Phân khúc chi tiêu
+- Whale: ~2% người chơi nhưng đóng góp phần lớn doanh thu
+- Dolphin: ~13% người chơi với mức chi tiêu trung bình
+- Minnow: ~85% người chơi với mức chi tiêu thấp
 
 ---
 
-## 4. Dữ liệu sử dụng
+## Các chỉ số monetization chính
 
-Dataset sử dụng trong báo cáo là dữ liệu mô phỏng hành vi người chơi game mobile và hoạt động mua hàng trong ứng dụng.
+Tổng quan dashboard cho thấy hệ thống monetization hoạt động với hiệu suất cao.
 
-### Thông tin dataset:
-- **Số bản ghi:** 3.024
-- **Số người chơi:** 3.024
-- **Số biến:** 13
+| Metric | Value |
+|------|------|
+| Total Users | 3,024 |
+| Paying Users | 2,887 |
+| Conversion Rate | 95.47% |
+| Total Revenue | 296.26K |
+| ARPU | 97.97 |
+| ARPPU | 102.62 |
 
-### Nhóm dữ liệu chính:
-- **Thông tin nhân khẩu học**
-- **Hành vi chơi game**
-- **Hành vi chi tiêu**
-
-### Mô hình phân khúc chi tiêu:
-Dataset được xây dựng theo mô hình:
-
-- **Whales**: nhóm người chơi chi tiêu cao, số lượng ít nhưng đóng góp doanh thu lớn
-- **Dolphins**: nhóm chi tiêu trung bình, đóng vai trò duy trì tăng trưởng
-- **Minnows**: nhóm chi tiêu thấp, đóng góp nhỏ về doanh thu nhưng lớn về quy mô người chơi
-
-Dataset có thêm một tỷ lệ nhỏ giá trị thiếu để mô phỏng dữ liệu thực tế.
+Doanh thu từ **Whale chiếm khoảng 59% tổng doanh thu**, phản ánh cấu trúc doanh thu điển hình của game mobile.
 
 ---
 
-## 5. Tổng quan kết quả monetization
+## Insight chính
 
-### 5.1. Hiệu suất tổng thể: Users → Payers → Revenue
+### Phân khúc người chơi
 
-Dashboard cho thấy hiệu suất monetization rất cao:
+Whale là nhóm đóng góp doanh thu lớn nhất mặc dù số lượng rất nhỏ.  
+Dolphin đóng vai trò duy trì tăng trưởng ổn định và có tiềm năng chuyển đổi thành Whale.  
+Minnow chiếm phần lớn người chơi nhưng đóng góp ít về doanh thu.
 
-- **Total Users:** 3.024
-- **Paying Users:** 2.887
-- **Conversion Rate:** 95,47%
-- **Total Revenue:** 296,26K
-- **ARPU:** 97,97
-- **ARPPU:** 102,62
+### Thể loại game
 
-Khoảng cách nhỏ giữa ARPU và ARPPU cho thấy phần lớn người chơi đều có hành vi chi tiêu, thay vì doanh thu chỉ tập trung ở một nhóm payer nhỏ.
+Các thể loại tạo doanh thu tốt nhất gồm:
 
-### 5.2. Whale Revenue
-
-- **Doanh thu từ Whale:** 175,58K
-- Chiếm khoảng **59% tổng doanh thu**
-
-Điều này cho thấy doanh thu vẫn phụ thuộc mạnh vào nhóm Whale, đúng với cấu trúc phổ biến của game mobile.
-
----
-
-## 6. Insight chính theo từng chiều phân tích
-
-### 6.1. Revenue theo Game Genre
-
-#### Nhóm tạo doanh thu cao:
 - Racing
 - Battle Royale
 - Strategy
-- MOBA
-- Fighting
 
-Đây là các genre có tính cạnh tranh cao, dễ kích hoạt hành vi chi tiêu thông qua:
+Các thể loại này có tính cạnh tranh cao và dễ kích hoạt hành vi chi tiêu.
 
-- Battle pass
-- Bundle giới hạn
-- Vật phẩm tăng sức mạnh
-- Nội dung theo mùa
+### Quốc gia
 
-#### Nhóm có nhiều user nhưng doanh thu chưa tương xứng:
-- MMORPG
-- Simulation
-- Role Playing
-- Card
-- Sports
+India là thị trường tạo doanh thu cao nhất.  
 
-Nhóm này có tiềm năng tăng ARPU nếu tối ưu tốt giá gói, thời điểm hiển thị offer và cơ chế mua theo tiến trình.
+Các thị trường khác có đóng góp đáng kể gồm:
 
-#### Nhóm đóng góp thấp:
-- Puzzle
-- Sandbox
-- Action RPG
-
-Các genre này hiện chưa cho thấy tiềm năng tạo doanh thu mạnh trong ngắn hạn.
-
----
-
-### 6.2. Revenue theo Payment Method
-
-Thứ tự đóng góp doanh thu giảm dần:
-
-- Debit Card
-- PayPal
-- Gift Card
-- Carrier Billing
-- Google Pay
-- Credit Card
-- Apple Pay
-
-Điều này cho thấy người chơi ưu tiên các phương thức thanh toán quen thuộc và ít ma sát.
-
----
-
-### 6.3. Revenue theo Country
-
-#### Thị trường dẫn đầu:
-- India
-
-#### Nhóm doanh thu cao tiếp theo:
 - Afghanistan
 - Bangladesh
 - Canada
 - South Korea
-- Denmark
 
-#### Nhóm doanh thu trung bình:
-- Germany
-- Italy
-- Russia
-- Japan
-- USA
-- UK
+### Thiết bị
 
-#### Nhóm doanh thu thấp:
-- Sweden
-- Austria
-- France
+- Android tạo doanh thu dựa trên **quy mô người chơi**
+- iOS tạo doanh thu dựa trên **giá trị chi tiêu**
 
-Doanh thu đang tập trung mạnh theo địa lý, đặc biệt phụ thuộc vào India.
+### Hành vi người chơi
+
+Playtime, session count và frequency có mối liên hệ chặt chẽ với monetization.
+
+Dữ liệu cho thấy **giai đoạn 9–11 sessions** là thời điểm người chơi chi tiêu mạnh nhất.
 
 ---
 
-### 6.4. Revenue theo Device
+## Khuyến nghị
 
-#### Android
-- Tạo doanh thu theo **quy mô**
-- Nhiều người chơi hơn
-- Conversion rate tốt hơn
-- Phù hợp với các gói giá thấp đến trung bình
+Một số hướng tối ưu monetization được đề xuất:
 
-#### iOS
-- Tạo doanh thu theo **giá trị**
-- ARPPU cao hơn
-- Người chơi có xu hướng chi tiêu cao hơn trên mỗi giao dịch
-- Phù hợp với bundle premium và gói giá trị cao
+- Giữ chân nhóm Whale bằng **VIP tier và loyalty reward**
+- Xây dựng chiến lược **upsell từ Dolphin lên Whale**
+- Tăng engagement của Minnow bằng **nhiệm vụ hằng ngày và gói entry price**
+- Kích hoạt các **offer giá trị cao ở giai đoạn 9–11 sessions**
+- Tối ưu **payment funnel và phương thức thanh toán phổ biến**
+- Localize **offer và pricing theo từng quốc gia**
 
 ---
 
-### 6.5. Revenue theo Spending Segment
+## Hạn chế
 
-#### Whale
-- Nhóm tạo doanh thu lớn nhất
-- Là trụ cột doanh thu nhưng có rủi ro phụ thuộc cao
-
-#### Dolphin
-- Là nhóm tăng trưởng ổn định
-- Có tiềm năng chuyển đổi thành Whale nếu được kích hoạt đúng cách
-
-#### Minnow
-- Đóng góp ít về doanh thu
-- Quan trọng về quy mô user và là nguồn payer tương lai
+- Dataset mang tính mô phỏng nên cần xác nhận bằng dữ liệu thực tế
+- Chưa phân tích sâu về **retention và churn**
+- Chưa đánh giá hiệu quả chi phí marketing theo từng thị trường
 
 ---
 
-## 7. Insight về hành vi người chơi
+## Hướng phát triển tiếp theo
 
-### 7.1. Frequency Segment và monetization
+Các hướng phân tích có thể mở rộng:
 
-- **High Frequency** có ARPU và ARPPU cao nhất
-- **Medium Frequency** có tiềm năng tăng conversion
-- **Low Frequency** có một phần user sẵn sàng chi sớm nhưng không duy trì được engagement
-
-### 7.2. Age Group
-
-Nhóm tuổi **20–40** là nhóm vừa có số lượng user lớn, vừa tạo phần lớn doanh thu.  
-Đây là core revenue group của sản phẩm.
-
-### 7.3. Playtime theo Frequency
-
-- High Frequency có playtime cao nhất
-- Medium Frequency ở mức trung bình
-- Low Frequency thấp nhất
-
-Playtime càng cao thì càng có nhiều điểm tiếp xúc với các cơ chế monetization.
-
-### 7.4. ARPPU và Conversion theo Device
-
-- **iOS:** ARPPU cao hơn
-- **Android:** Conversion rate tốt hơn
-
-Điều này phản ánh rõ:
-
-- iOS = **value-based monetization**
-- Android = **volume-based monetization**
-
-### 7.5. Mối quan hệ giữa ARPU, Playtime và Revenue theo Genre
-
-Không phải genre nào có playtime cao cũng tạo doanh thu cao.  
-Doanh thu chỉ tăng mạnh khi playtime được kết hợp với cơ chế monetization phù hợp.
-
-### 7.6. Session Count và Revenue
-
-Dữ liệu cho thấy vùng **9–11 sessions** là **“điểm vàng”** của monetization.
-
-Tại giai đoạn này:
-- Whale chi tiêu mạnh nhất
-- Dolphin cũng có xu hướng tăng chi tiêu rõ rệt
-
-Đây là thời điểm phù hợp để triển khai:
-- Power pack
-- Limited bundle
-- Upgrade pack
-- Offer theo hành vi
+- Cohort analysis
+- Retention và churn analysis
+- Predictive modeling cho hành vi chi tiêu
+- Phân tích sâu theo từng khu vực thị trường
 
 ---
 
-## 8. Tổng hợp nhận xét chính
+## Công cụ sử dụng
 
-Từ dashboard có thể rút ra một số kết luận chính:
-
-- Hệ thống monetization đang vận hành rất hiệu quả
-- Tỷ lệ payer rất cao, cho thấy hành vi chi tiêu đã được tích hợp sâu vào trải nghiệm game
-- Doanh thu vẫn phụ thuộc đáng kể vào nhóm Whale
-- India là thị trường trụ cột về revenue
-- Android tạo doanh thu theo quy mô, iOS tạo doanh thu theo giá trị
-- Frequency, Playtime và Session Count có quan hệ chặt chẽ với chi tiêu
-- Vùng 9–11 sessions là thời điểm monetization hiệu quả nhất
-- Các genre cạnh tranh như Racing, Battle Royale, Strategy chuyển đổi playtime thành revenue tốt hơn các genre thiên về trải nghiệm dài hạn
-
+- SQL – xử lý dữ liệu và tính toán KPI
+- Power BI – trực quan hóa dashboard
+- Excel / CSV – tiền xử lý dữ liệu
+- GitHub – quản lý project và version control
 ---
 
-## 9. Định hướng tối ưu monetization
+## Dashboard Demo
 
-### 9.1. Tối ưu theo phân khúc người chơi
-- Giữ chân Whale bằng VIP tier, loyalty reward và ưu đãi độc quyền
-- Xây lộ trình upsell từ Dolphin lên Whale
-- Tăng engagement của Minnow bằng nhiệm vụ hằng ngày và gói entry price
-
-### 9.2. Tối ưu theo hành vi chơi
-- Kích hoạt offer mạnh ở vùng **9–11 sessions**
-- Tăng frequency bằng daily/weekly quest
-- Dùng comeback reward và push notification để re-engage user rời game
-
-### 9.3. Tối ưu theo thiết bị
-- **Android:** tập trung gói low–mid price và tăng purchase frequency
-- **iOS:** tập trung premium pack, bundle giá cao và chương trình loyalty
-
-### 9.4. Tối ưu theo thị trường
-- Bảo vệ doanh thu tại thị trường trụ cột
-- Localize offer và price ladder theo từng quốc gia
-- Phân bổ ngân sách marketing theo hiệu quả ARPU và conversion rate
-
-### 9.5. Tối ưu theo thiết kế monetization
-- Tăng các điểm kích hoạt mua trong gameplay
-- A/B test giá gói, bundle và thời điểm hiển thị offer
-- Tối ưu payment funnel để giảm ma sát trong thanh toán
-
----
-
-## 10. Cấu trúc thư mục gợi ý
-
-```text
-Game-Monetization-Analysis
-│
-├── dashboard
-│   └── monetization_dashboard.png
-│
-├── sql
-│   └── monetization_analysis.sql
-│
-├── data
-│   └── sample_dataset.csv
-│
-└── README.md
+<img width="1324" height="763" alt="image" src="https://github.com/user-attachments/assets/83640eee-6b78-40c4-84d9-156ebefab4b8" />
+<img width="1325" height="766" alt="image" src="https://github.com/user-attachments/assets/75aa68cd-19db-4921-8d4d-8af7425be6a1" />
+<img width="1324" height="764" alt="image" src="https://github.com/user-attachments/assets/4f694111-802c-453c-91d1-afec267e9eff" />
