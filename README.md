@@ -168,4 +168,4 @@ Các hướng phân tích có thể mở rộng:
 
 <img width="1324" height="763" alt="image" src="https://github.com/user-attachments/assets/83640eee-6b78-40c4-84d9-156ebefab4b8" />
 <img width="1325" height="766" alt="image" src="https://github.com/user-attachments/assets/75aa68cd-19db-4921-8d4d-8af7425be6a1" />
-<img width="1324" height="764" alt="image" src="https://github.com/user-attachments/assets/4f694111-802c-453c-91d1-afec267e9eff" />
+<img width="1325" height="767" alt="image" src="https://github.com/user-attachments/assets/67dd33f7-0b20-4aef-99d7-55d1cafc9097" />
